@@ -104,7 +104,7 @@ END_PROGRAM
 
 logger output:
 
-![logger_MD_LogWatch8Flags](https://github.com/hilch/MyDiag/blob/main/doc/logger_MD_LogWatch8FlagsL.png)
+![logger_MD_LogWatch8Flags](https://github.com/hilch/MyDiag/blob/main/doc/logger_MD_LogWatch8Flags.png)
 
 
 
