@@ -1,0 +1,22 @@
+VAR
+	event1 : BOOL;
+	interface : InterfaceType;
+	light_barrier : BOOL;
+END_VAR
+VAR CONSTANT
+	BASIC_INFO_ID : DINT := 1610612736;
+END_VAR
+VAR
+	counter : DINT;
+	tempstring : STRING[80];
+	MD_LogWrite_0 : MD_LogWrite;
+	MD_LogWatchBOOL_0 : MD_LogWatchBOOL;
+	MD_LogWatch8Flags_0 : MD_LogWatch8Flags;
+	MD_LogWatchDINT_0 : MD_LogWatchDINT;
+	MD_Dump_0 : MD_Dump;
+	n : USINT;
+	step : INT;
+	stepStr : STRING[80];
+	MD_LogWatchSTRING_0 : MD_LogWatchSTRING;
+	error_situation : BOOL;
+END_VAR
