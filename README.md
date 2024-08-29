@@ -260,6 +260,6 @@ With a rising edge at the 'Execute' input, the oldest files are deleted until th
 usage:
 
 ```
-MD_LimitFileNumber( Execute := TRUE, FileDeviceName := 'Diagnosis', DirectoryName := '', FileNamePattern := 'SysDump_');
+MD_LimitFileNumber_0( Execute := TRUE, FileDeviceName := 'Diagnosis', DirectoryName := '', FileNamePattern := 'SysDump_');
 
 ```
