@@ -63,12 +63,16 @@ PROGRAM _CYCLIC
 END_PROGRAM
 ```
 
+logger output:
+
+![logger_MD_LogWatchBOOL](https://github.com/hilch/MyDiag/blob/main/doc/logger_MD_LogWatchBOOL.png)
+
 
 ### MD_LogWatch8Flags
 
 Writes status of up to 8 bits ('flags') into logger on variable change.
 Each bit is assigned a text via '.Flag[x]', where a '1' state is indicated with upper case letters and a '0' state with lower case letters. 
-If the output text in logger is preceded by an asterisk '*', this means that the state of this bit has changed.
+If the output text in logger is preceded by an asterisk '*', this means that the flag has changed.
 
 usage:
 ```
@@ -98,6 +102,11 @@ PROGRAM _CYCLIC
 END_PROGRAM
 ```
 
+logger output:
+
+![logger_MD_LogWatch8Flags](https://github.com/hilch/MyDiag/blob/main/doc/logger_MD_LogWatch8FlagsL.png)
+
+
 
 ### MD_LogWatchDINT
 
@@ -116,6 +125,11 @@ PROGRAM _CYCLIC
 	MD_LogWatchDINT_0( Signal := counter );
 END_PROGRAM
 ```
+
+logger output:
+
+![logger_MD_LogWatchDINT](https://github.com/hilch/MyDiag/blob/main/doc/logger_MD_LogWatchDINT.png)
+
 
 
 ### MD_LogWatchSTRING
@@ -157,6 +171,11 @@ PROGRAM _CYCLIC
 END_PROGRAM
 ```
 
+logger output:
+
+![logger_MD_LogWatchSTRING](https://github.com/hilch/MyDiag/blob/main/doc/logger_MD_LogWatchSTRING.png)
+
+
 
 ### MD_LogWrite
 
@@ -182,6 +201,11 @@ PROGRAM _CYCLIC
 	END_IF
 END_PROGRAM
 ```
+
+logger output:
+
+![logger_MD_LogWriteL](https://github.com/hilch/MyDiag/blob/main/doc/logger_MD_LogWrite.png)
+
 
 
 ### MD_Dump
