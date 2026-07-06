@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<?AutomationStudio Version="4.12.9.18 SP"?>
+<ConfigInfo xmlns="http://br-automation.co.at/AS/BuildInfo">
+  <TaskClass
+    Name="Cyclic#1">
+    <Task
+      Name="UserEvent"
+      Disable="false"
+      Source="UserEvent"
+      Language="IEC">
+      <InternalFile
+        Path="C:\Projects\github\MyDiag\tools\AS6\project\Temp\Objects\Config1\X20CP3685\UserEvent\Main.st.var" />
+      <File
+        Path="C:\Projects\github\MyDiag\tools\AS6\project\Logical\UserEvent\Types.typ" />
+      <File
+        Path="C:\Projects\github\MyDiag\tools\AS6\project\Logical\UserEvent\Variables.var" />
+    </Task>
+    <Task
+      Name="CfgProf"
+      Disable="false"
+      Source="CfgProf"
+      Language="IEC">
+      <InternalFile
+        Path="C:\Projects\github\MyDiag\tools\AS6\project\Temp\Objects\Config1\X20CP3685\CfgProf\Main.st.var" />
+      <File
+        Path="C:\Projects\github\MyDiag\tools\AS6\project\Logical\CfgProf\Types.typ" />
+      <File
+        Path="C:\Projects\github\MyDiag\tools\AS6\project\Logical\CfgProf\Variables.var" />
+    </Task>
+  </TaskClass>
+  <TaskClass
+    Name="Cyclic#2">
+    <Task
+      Name="Logging"
+      Disable="false"
+      Source="Logging"
+      Language="IEC">
+      <InternalFile
+        Path="C:\Projects\github\MyDiag\tools\AS6\project\Temp\Objects\Config1\X20CP3685\Logging\Main.st.var" />
+      <File
+        Path="C:\Projects\github\MyDiag\tools\AS6\project\Logical\Logging\Types.typ" />
+      <File
+        Path="C:\Projects\github\MyDiag\tools\AS6\project\Logical\Logging\Variables.var" />
+    </Task>
+  </TaskClass>
+  <TaskClass
+    Name="Cyclic#3" />
+  <TaskClass
+    Name="Cyclic#4" />
+  <TaskClass
+    Name="Cyclic#5" />
+  <TaskClass
+    Name="Cyclic#6" />
+  <TaskClass
+    Name="Cyclic#7" />
+  <TaskClass
+    Name="Cyclic#8" />
+</ConfigInfo>

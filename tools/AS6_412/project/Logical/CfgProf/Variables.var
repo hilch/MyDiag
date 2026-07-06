@@ -1,0 +1,7 @@
+VAR CONSTANT
+	libraryFunctions : STRING[1800] := 'brsstrcpy$00';
+END_VAR
+VAR
+	definition : PROFILER_DEFINITION;
+	fbProfiler : MD_Profiler;
+END_VAR

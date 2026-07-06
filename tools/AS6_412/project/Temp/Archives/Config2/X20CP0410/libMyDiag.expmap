@@ -1,0 +1,14 @@
+{
+  global:
+    MD_Dump;
+    MD_ascDT;
+    MD_filenameDT;
+    MD_LogWatchBOOL;
+    MD_LogWatch8Flags;
+    MD_LogWatchDINT;
+    MD_LogWatchSTRING;
+    MD_LogWrite;
+    MD_LimitFileNumber;
+  local:
+    *;
+ };
