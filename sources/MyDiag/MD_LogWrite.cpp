@@ -44,6 +44,10 @@ SOFTWARE.
 
 unsigned long bur_heap_size = 0x10000;
 
+#define GCC_VERSION (__GNUC__ * 10000 + __GNUC_MINOR__ * 100 + __GNUC_PATCHLEVEL__)
+#if GCC_VERSION < 60300  // GCC 6.3.0
+    #warning "GCC version 6.3.0 or higher is required!"
+#endif
 
 #define STARTUP 0
 #define CREATE_NEW_LOG 10
