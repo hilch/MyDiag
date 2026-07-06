@@ -170,3 +170,33 @@ END_FUNCTION_BLOCK
 		pass : USINT;
 	END_VAR
 END_FUNCTION_BLOCK
+
+FUNCTION_BLOCK MD_Profiler (*Configures AR Profiler*)
+	VAR_INPUT
+		Enable : BOOL;
+		CreateArchive : BOOL;
+	END_VAR
+	VAR_OUTPUT
+		Done : BOOL;
+		Busy : BOOL;
+		Error : BOOL;
+		ErrorID : DINT;
+		step : MD_Profiler_Step;
+	END_VAR
+	VAR_IN_OUT
+		PrfDef : PROFILER_DEFINITION;
+	END_VAR
+	VAR
+		fbLogStateGet : LogStateGet;
+		fbLogInstall : LogInstall;
+		fbLogDeInstall : LogDeInstall;
+		fbLogStart : LogStart;
+		fbLogStop : LogStop;
+		fbLogArchCreate : LogArchCreate;
+		fbLogArchDelete : LogArchDelete;
+		fbLogIdleShow : LogIdleShow;
+		fbGetTime : DTGetTime;
+		archive_name : STRING[12];
+		error_step : MD_Profiler_Step;
+	END_VAR
+END_FUNCTION_BLOCK

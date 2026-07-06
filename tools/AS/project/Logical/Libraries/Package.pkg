@@ -16,6 +16,7 @@
     <Object Type="Library" Language="binary" Description="The DataObj library can be used to dynamically create, dynamically delete and copy data objects, etc. ">DataObj</Object>
     <Object Type="Library" Language="binary" Description="This library contains FBKs for exchanging and formatting data (message based) via HTTP (TCP).">AsHttp</Object>
     <Object Type="Library" Language="binary" Description="The AsArSdm library supports the System Diagnostics Manager">AsArSdm</Object>
+    <Object Type="Library" Language="binary" Description="The AsArProf library is used to operate the AR Profiler from an application.">AsArProf</Object>
     <Object Type="Library" Language="ANSIC" Description="https://github.com/hilch/MyDiag" Reference="true">C:\Projects\github\MyDiag\sources\MyDiag\ANSIC.lby</Object>
   </Objects>
 </Package>
