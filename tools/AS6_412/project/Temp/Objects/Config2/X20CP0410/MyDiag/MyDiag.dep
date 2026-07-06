@@ -1,8 +1,0 @@
-C:/Projects/github/MyDiag/sources/MyDiag/MyDiag.fun
-$(AS_PROJECT_PATH)/Logical/Libraries/FileIO/FileIO.fun
-$(AS_PROJECT_PATH)/Logical/Libraries/FileIO/FileIO.typ
-$(AS_PROJECT_PATH)/Logical/Libraries/ArEventLog/ArEventLog.typ
-$(AS_PROJECT_PATH)/Logical/Libraries/runtime/runtime.typ
-$(AS_PROJECT_PATH)/Logical/Libraries/ArEventLog/ArEventLog.fun
-$(AS_PROJECT_PATH)/Logical/Libraries/AsArSdm/AsArSdm.fun
-$(AS_PROJECT_PATH)/Logical/Libraries/astime/astime.fun

@@ -1,8 +1,0 @@
-VAR
-	i : DINT;
-	dest : STRING[1000];
-	src : STRING[1000];
-	crash : BOOL;
-	fbEvent : LogEvent;
-	t : TIME;
-END_VAR
