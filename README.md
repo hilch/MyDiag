@@ -1,12 +1,12 @@
+# MyDiag
+
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Made For B&R](https://github.com/hilch/BandR-badges/blob/main/Made-For-BrAutomation.svg)](https://www.br-automation.com)
 
-# MyDiag
 Helper Library for diagnosis with B&R Automation Runtime logger
-Included are some function blocks that can be used to easily make entries in application specific loggers. 
+Included are some function blocks that can be used to easily make entries in application specific loggers.
 In the event of an error, internal states (state machines, internal process data) can thus be brought into connection with system loggers.
 As a further aid, function block to store a SystemDump in case of an event is present.
-
 
 ## Dependencies / Preconditions
 
@@ -20,25 +20,22 @@ As a further aid, function block to store a SystemDump in case of an event is pr
 
 GCC >= V6.3.0
 
-
-
-# Functions / function blocks
-
-## Function blocks for logging
+## Functions / function blocks for logging
 
 They are just convenience function around ArEventLog. If logger does not exist it will be created.
 
-(Older Automation Runtime seem to have problems generating logbooks in tasks with short cycle times. 
+(Older Automation Runtime seem to have problems generating logbooks in tasks with short cycle times.
 This can be avoided if these functions are called once in _INIT.)
 
 example:
-```
+
+```st
 PROGRAM _INIT
-	(* ensure the user log is already present after _INIT *)
-	REPEAT
-		MD_LogWatchDINT_0( Enable := TRUE );
-	UNTIL NOT MD_LogWatchDINT_0.Busy
-	END_REPEAT
+    (* ensure the user log is already present after _INIT *)
+    REPEAT
+        MD_LogWatchDINT_0( Enable := TRUE );
+    UNTIL NOT MD_LogWatchDINT_0.Busy
+    END_REPEAT
 END_PROGRAM
 ```
 
@@ -50,16 +47,17 @@ Every write command is executed within 1 cycle.
 Write status of BOOL variable into logger on variable change.
 
 usage:
-```
+
+```st
 PROGRAM _INIT
-	(* initialization MD_LogWatchBOOL *)
-	MD_LogWatchBOOL_0( Enable := FALSE, LogName := 'mylog', SignalName := 'light barrier', EventID := BASIC_INFO_ID  );
-	MD_LogWatchBOOL_0.Enable := TRUE; 
+    (* initialization MD_LogWatchBOOL *)
+    MD_LogWatchBOOL_0( Enable := FALSE, LogName := 'mylog', SignalName := 'light barrier', EventID := BASIC_INFO_ID  );
+    MD_LogWatchBOOL_0.Enable := TRUE; 
 END_PROGRAM
 
 PROGRAM _CYCLIC
-	(* wait for a signal change *)
-	MD_LogWatchBOOL_0( Signal := light_barrier );
+    (* wait for a signal change *)
+    MD_LogWatchBOOL_0( Signal := light_barrier );
 END_PROGRAM
 ```
 
@@ -67,38 +65,38 @@ logger output:
 
 ![logger_MD_LogWatchBOOL](https://github.com/hilch/MyDiag/blob/main/doc/logger_MD_LogWatchBOOL.png)
 
-
 ### MD_LogWatch8Flags
 
 Writes status of up to 8 bits ('flags') into logger on variable change.
-Each bit is assigned a text via '.Flag[x]', where a '1' state is indicated with upper case letters and a '0' state with lower case letters. 
+Each bit is assigned a text via '.Flag[x]', where a '1' state is indicated with upper case letters and a '0' state with lower case letters.
 If the output text in logger is preceded by an asterisk '*', this means that the flag has changed.
 
 usage:
-```
+
+```st
 PROGRAM _INIT
-	(* initialization MD_LogWatch8Flags *)
-	MD_LogWatch8Flags_0( Enable := FALSE, LogName := 'mylog', SignalName := 'interface signals', EventID := BASIC_INFO_ID );
-	MD_LogWatch8Flags_0.Flag[0] := 'fr.Power'; (* max. 8 characters *)
-	MD_LogWatch8Flags_0.Flag[1] := 'fr.Auto';
-	MD_LogWatch8Flags_0.Flag[2] := 'to.Power';
-	MD_LogWatch8Flags_0.Flag[3] := 'to.Auto';
-	MD_LogWatch8Flags_0.Flag[4] := 'to.Cover';
-	MD_LogWatch8Flags_0.Flag[5] := 'to.Error';
-	MD_LogWatch8Flags_0.Enable := TRUE;
+    (* initialization MD_LogWatch8Flags *)
+    MD_LogWatch8Flags_0( Enable := FALSE, LogName := 'mylog', SignalName := 'interface signals', EventID := BASIC_INFO_ID );
+    MD_LogWatch8Flags_0.Flag[0] := 'fr.Power'; (* max. 8 characters *)
+    MD_LogWatch8Flags_0.Flag[1] := 'fr.Auto';
+    MD_LogWatch8Flags_0.Flag[2] := 'to.Power';
+    MD_LogWatch8Flags_0.Flag[3] := 'to.Auto';
+    MD_LogWatch8Flags_0.Flag[4] := 'to.Cover';
+    MD_LogWatch8Flags_0.Flag[5] := 'to.Error';
+    MD_LogWatch8Flags_0.Enable := TRUE;
 
 END_PROGRAM
 
 PROGRAM _CYCLIC
-	(* collect signals from an interface *)
-	MD_LogWatch8Flags_0.Signal.0 := interface.from.PowerOn;
-	MD_LogWatch8Flags_0.Signal.1 := interface.from.StartAutomatic;
-	MD_LogWatch8Flags_0.Signal.2 := interface.to.PowerIsOn;
-	MD_LogWatch8Flags_0.Signal.3 := interface.to.AutomaticIsActive;
-	MD_LogWatch8Flags_0.Signal.4 := interface.to.CoverOpenPermission;
-	MD_LogWatch8Flags_0.Signal.5 := interface.to.Error;
-	(* wait for signal change *)
-	MD_LogWatch8Flags_0();
+    (* collect signals from an interface *)
+    MD_LogWatch8Flags_0.Signal.0 := interface.from.PowerOn;
+    MD_LogWatch8Flags_0.Signal.1 := interface.from.StartAutomatic;
+    MD_LogWatch8Flags_0.Signal.2 := interface.to.PowerIsOn;
+    MD_LogWatch8Flags_0.Signal.3 := interface.to.AutomaticIsActive;
+    MD_LogWatch8Flags_0.Signal.4 := interface.to.CoverOpenPermission;
+    MD_LogWatch8Flags_0.Signal.5 := interface.to.Error;
+    (* wait for signal change *)
+    MD_LogWatch8Flags_0();
 END_PROGRAM
 ```
 
@@ -106,23 +104,22 @@ logger output:
 
 ![logger_MD_LogWatch8Flags](https://github.com/hilch/MyDiag/blob/main/doc/logger_MD_LogWatch8Flags.png)
 
-
-
 ### MD_LogWatchDINT
 
 Writes status of DINT variable into logger on variable change.
 
 usage:
-```
+
+```st
 PROGRAM _INIT
-	(* initialization MD_LogWatchDINT *)
-	MD_LogWatchDINT_0( Enable := FALSE, LogName := 'mylog', SignalName := 'counter', EventID := BASIC_INFO_ID );
-	MD_LogWatchDINT_0.Enable := TRUE;
+    (* initialization MD_LogWatchDINT *)
+    MD_LogWatchDINT_0( Enable := FALSE, LogName := 'mylog', SignalName := 'counter', EventID := BASIC_INFO_ID );
+    MD_LogWatchDINT_0.Enable := TRUE;
 END_PROGRAM
 
 PROGRAM _CYCLIC
-	(* wait for signal change *)
-	MD_LogWatchDINT_0( Signal := counter );
+    (* wait for signal change *)
+    MD_LogWatchDINT_0( Signal := counter );
 END_PROGRAM
 ```
 
@@ -130,44 +127,43 @@ logger output:
 
 ![logger_MD_LogWatchDINT](https://github.com/hilch/MyDiag/blob/main/doc/logger_MD_LogWatchDINT.png)
 
-
-
 ### MD_LogWatchSTRING
 
 Writes contents of STRING variable into logger on variable change.
 
 usage:
-```
+
+```st
 PROGRAM _INIT
-	(* initialization MD_LogWatchSTRING *)
-	MD_LogWatchSTRING_0( Enable := FALSE, LogName := 'mylog', SignalName := 'step', EventID := BASIC_INFO_ID );
-	MD_LogWatchSTRING_0.Enable := TRUE;
-	(* init state machine variables *)
-	step := 0;
-	stepStr := '_INIT';
+    (* initialization MD_LogWatchSTRING *)
+    MD_LogWatchSTRING_0( Enable := FALSE, LogName := 'mylog', SignalName := 'step', EventID := BASIC_INFO_ID );
+    MD_LogWatchSTRING_0.Enable := TRUE;
+    (* init state machine variables *)
+    step := 0;
+    stepStr := '_INIT';
 END_PROGRAM
 
 PROGRAM _CYCLIC
-	CASE step OF
-		0:
-		stepStr := 'Step 0';
-		step := 1;		
+    CASE step OF
+        0:
+        stepStr := 'Step 0';
+        step := 1;
 
-		1:
-		stepStr := 'Step 1';
-		step := 2;
+        1:
+        stepStr := 'Step 1';
+        step := 2;
 
-		2:
-		stepStr := 'Step 2';
-		step := 3;
+        2:
+        stepStr := 'Step 2';
+        step := 3;
 
-		3:
-		stepStr := 'Step 3';
-		step := -1;
+        3:
+        stepStr := 'Step 3';
+        step := -1;
 
-	END_CASE
-	(* wait for signal change *)
-	MD_LogWatchSTRING_0( Signal := stepStr );
+    END_CASE
+    (* wait for signal change *)
+    MD_LogWatchSTRING_0( Signal := stepStr );
 END_PROGRAM
 ```
 
@@ -175,30 +171,29 @@ logger output:
 
 ![logger_MD_LogWatchSTRING](https://github.com/hilch/MyDiag/blob/main/doc/logger_MD_LogWatchSTRING.png)
 
-
-
 ### MD_LogWrite
 
 Writes into Logger. Generic function with 'Execute' input.
 
 usage:
-```
+
+```st
 PROGRAM _INIT
-	(* initialization MD_LogWrite() *)
-	MD_LogWrite_0(Execute := FALSE, Name := 'mylog', ObjectID := 'program: Program', EventID := BASIC_INFO_ID );
+    (* initialization MD_LogWrite() *)
+    MD_LogWrite_0(Execute := FALSE, Name := 'mylog', ObjectID := 'program: Program', EventID := BASIC_INFO_ID );
 END_PROGRAM
 
 PROGRAM _CYCLIC
-	(* wait for an event *)
-	IF event1 THEN (* wait for an event *)
-		event1 := FALSE;
-		counter := counter + 1;
-		(* prepare storing data into logger *)
-		MD_LogWrite_0.Ascii := 'counter:';
-		brsitoa( counter, ADR(tempstring) );
-		brsstrcat( ADR(MD_LogWrite_0.Ascii),  ADR(tempstring) );
-		MD_LogWrite_0( Execute := TRUE );
-	END_IF
+    (* wait for an event *)
+    IF event1 THEN (* wait for an event *)
+        event1 := FALSE;
+        counter := counter + 1;
+        (* prepare storing data into logger *)
+        MD_LogWrite_0.Ascii := 'counter:';
+        brsitoa( counter, ADR(tempstring) );
+        brsstrcat( ADR(MD_LogWrite_0.Ascii),  ADR(tempstring) );
+        MD_LogWrite_0( Execute := TRUE );
+    END_IF
 END_PROGRAM
 ```
 
@@ -206,26 +201,70 @@ logger output:
 
 ![logger_MD_LogWriteL](https://github.com/hilch/MyDiag/blob/main/doc/logger_MD_LogWrite.png)
 
-
-
 ### MD_Dump
 
 Create a System Dump File on local storage. The system date is included in file name.
 The number of files can be limited to reduce storage space.
 
 usage:
-```
+
+```st
 PROGRAM _INIT
-	(* initialize system dumping *)
-	MD_Dump_0( Execute := FALSE, FileDeviceName := 'Diagnosis', FileNamePrefix := 'MyDumps', MaxFileCount := 10 );
+    (* initialize system dumping *)
+    MD_Dump_0( Execute := FALSE, FileDeviceName := 'Diagnosis', FileNamePrefix := 'MyDumps', MaxFileCount := 10 );
 END_PROGRAM
 ```
 
-```
+```st
 PROGRAM _CYCLIC
-	MD_Dump_0( Execute := error_situation );
+    MD_Dump_0( Execute := error_situation );
 END_PROGRAM
 ```
+
+## Profiler
+
+### MD_Profiler
+
+Configures the Automation Runtime Profiler.
+Enables you e.g. to increase the logging space and what details to log.
+Additionally you can create a profiler archive on command.
+
+usage:
+
+```st
+
+VAR CONSTANT
+    libraryFunctions : STRING[1800] := 'brsstrcpy$00';
+END_VAR
+VAR
+    definition : PROFILER_DEFINITION;
+    fbProfiler : MD_Profiler;
+END_VAR
+
+
+PROGRAM _INIT
+    definition.logGroup := profLOGGRP_ALL;  (*Event grout to be logged. profLOGGRP_ALL = log all groups *)
+    definition.logMode :=  profLOGMOD_STARTUPINST OR profLOGMOD_CONTINUOUS;  (* starts the profiling then continous recording*)
+    definition.archMode := profARCHMOD_OPT_ERROR; (*Automatic archiving in case of error*)
+    definition.memTypeDef := profMEMTYPE_USERROM ;  (*Store definition module to USERROM*)
+    definition.libFctCnt := 1;
+    definition.pLibFunctions := ADR(libraryFunctions);
+
+    (* storing to USERRAM allows to find watchdog errors, but causes a high system load !! *)
+    definition.memTypeDat := profMEMTYPE_DRAM; //profMEMTYPE_USERRAM ;  (*Store data object to USERRAM = used to record WATCHDOG errors*)
+    definition.bufferSize := 1024*2000;  (*Size of the log buffer in bytes*)
+    definition.backupLevel := profBKPLEVEL_SHUTDOWN;  (*profiling is backed up only at shutdown*)
+    definition.addDataSize := 0;
+ 
+    fbProfiler.Enable := TRUE;
+END_PROGRAM
+
+PROGRAM _CYCLIC
+    fbProfiler(PrfDef := definition); 
+END_PROGRAM
+```
+
+see [PROFILER_DEFINITION](https://help.br-automation.com/#/en/4/libraries%2Fasarprof%2Fdatatypes%2Fprofiler_definition.html) for details.
 
 ## Helper functions and function blocks
 
@@ -236,30 +275,34 @@ These function blocks are internally used but might be helpful in other situatio
 Returns ASCII timestring for DATE_AND_TIME
 
 usage:
-```
+
+```st
 MD_ascDT( entry.LocalTime, ADR(strAsctime), SIZEOF(strAsctime) );  (* convert time stamp to readable string *)
 ```
+
 The output will be a string like `'Thu Aug 23  14:55:20'`.
 
 ### MD_filenameDT
 
 Returns a valid filename with given prefix and IEC like timestamp included.
-This function block is used for generating filenames within MD_Record 
+This function block is used for generating filenames within MD_Record
 
 usage:
-```
+
+```st
 MD_filenameDT( ADR('SystemDump_'), ADR(filename), SIZEOF(filename) );
 ```
+
 The output will be a string like `'SystemDump_2023-01-15T14_55_20'`.
 
 ### MD_LimitFileNumber
 
 Limits the number of files on a file device. The FileNamePattern can be given by a regular expression.
-With a rising edge at the 'Execute' input, the oldest files are deleted until the maximum number 'MaxCount' is reached. 
+With a rising edge at the 'Execute' input, the oldest files are deleted until the maximum number 'MaxCount' is reached.
 
 usage:
 
-```
+```st
 MD_LimitFileNumber_0( Execute := TRUE, FileDeviceName := 'Diagnosis', DirectoryName := '', FileNamePattern := 'SysDump_');
 
 ```
