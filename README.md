@@ -266,6 +266,12 @@ END_PROGRAM
 
 see [PROFILER_DEFINITION](https://help.br-automation.com/#/en/4/libraries%2Fasarprof%2Fdatatypes%2Fprofiler_definition.html) for details.
 
+Using the AsArProf library, you can also measure specific sections of code within programs with precision.
+To do this, you must enclose the relevant code sections with [LogEvent()](https://help.br-automation.com/#/en/4/libraries%2Fasarprof%2Ffbks%2Flogevent.html).
+
+[Here an example of how this works](https://github.com/hilch/MyDiag/blob/main/tools/AS4/project/Logical/UserEvent/Main.st).
+
+
 ## Helper functions and function blocks
 
 These function blocks are internally used but might be helpful in other situations.
