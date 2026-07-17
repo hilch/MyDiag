@@ -22,7 +22,7 @@ GCC >= V6.3.0
 
 ## Functions / function blocks for logging
 
-They are just convenience function around ArEventLog. If logger does not exist it will be created.
+They are just convenience function blocks around ArEventLog. If logger does not exist it will be created.
 
 (Older Automation Runtime seem to have problems generating logbooks in tasks with short cycle times.
 This can be avoided if these functions are called once in _INIT.)
@@ -270,7 +270,6 @@ Using the AsArProf library, you can also measure specific sections of code withi
 To do this, you must enclose the relevant code sections with [LogEvent()](https://help.br-automation.com/#/en/4/libraries%2Fasarprof%2Ffbks%2Flogevent.html).
 
 [Here an example of how this works](https://github.com/hilch/MyDiag/blob/main/tools/AS4/project/Logical/UserEvent/Main.st).
-
 
 ## Helper functions and function blocks
 
