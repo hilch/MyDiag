@@ -3,10 +3,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Made For B&R](https://github.com/hilch/BandR-badges/blob/main/Made-For-BrAutomation.svg)](https://www.br-automation.com)
 
-Helper Library for diagnosis with B&R Automation Runtime logger
-Included are some function blocks that can be used to easily make entries in application specific loggers.
-In the event of an error, internal states (state machines, internal process data) can thus be brought into connection with system loggers.
-As a further aid, function block to store a SystemDump in case of an event is present.
+MyDiag is a helper library for B&R Automation Runtime (Automation Studio) that simplifies application-level diagnostics. It wraps the ArEventLog and AsArSdm system libraries to give PLC developers easy-to-use IEC 61131-3 function blocks for logging variable changes, writing log entries, capturing system dumps, and configuring the AR Profiler — without needing to call those lower-level APIs directly.
 
 ## Dependencies / Preconditions
 
