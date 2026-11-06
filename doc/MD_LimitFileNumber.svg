@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg version="1.1"
+    xmlns="http://www.w3.org/2000/svg"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    width="369px"
+    height="118px">
+    <defs>
+        <linearGradient
+            id="linearGradient_FB_Header"
+            x1="0%"
+            y1="0%"
+            x2="100%"
+            y2="0%">
+            <stop offset="0%" stop-color="#5cacee"/>
+            <stop offset="50%" stop-color="#ccdff8"/>
+            <stop offset="100%" stop-color="#ffffff"/>
+        </linearGradient>
+        <linearGradient
+            id="linearGradient_FB_Header_Safety"
+            x1="0%"
+            y1="0%"
+            x2="100%"
+            y2="0%">
+            <stop offset="0%" stop-color="#ffff00"/>
+            <stop offset="50%" stop-color="#ffffcc"/>
+            <stop offset="100%" stop-color="#ffffff"/>
+        </linearGradient>
+        <linearGradient
+            id="linearGradient_FB_Header_SafeDESIGNER"
+            x1="0%"
+            y1="0%"
+            x2="100%"
+            y2="0%">
+            <stop offset="0%" stop-color="#ffff00"/>
+            <stop offset="50%" stop-color="#ffff00"/>
+            <stop offset="100%" stop-color="#ffff00"/>
+        </linearGradient>
+        <linearGradient
+            id="linearGradient_FB_BodyArea_1"
+            x1="0%"
+            y1="0%"
+            x2="100%"
+            y2="0%">
+            <stop offset="0%" stop-color="#ff7f00"/>
+            <stop offset="50%" stop-color="#ffc8b6"/>
+            <stop offset="100%" stop-color="#ffffff"/>
+        </linearGradient>
+        <linearGradient
+            id="linearGradient_FB_BodyArea_1_Safety"
+            x1="0%"
+            y1="0%"
+            x2="100%"
+            y2="0%">
+            <stop offset="0%" stop-color="#ffff00"/>
+            <stop offset="50%" stop-color="#ffffcc"/>
+            <stop offset="100%" stop-color="#ffffff"/>
+        </linearGradient>
+        <linearGradient
+            id="linearGradient_FB_BodyArea_1_SafeDESIGNER"
+            x1="0%"
+            y1="0%"
+            x2="100%"
+            y2="0%">
+            <stop offset="0%" stop-color="#ffff00"/>
+            <stop offset="50%" stop-color="#ffff00"/>
+            <stop offset="100%" stop-color="#ffff00"/>
+        </linearGradient>
+        <linearGradient
+            id="linearGradient_FB_BodyArea_2"
+            x1="0%"
+            y1="0%"
+            x2="100%"
+            y2="0%">
+            <stop offset="0%" stop-color="#bebebe"/>
+            <stop offset="50%" stop-color="#e4e4e4"/>
+            <stop offset="100%" stop-color="#ffffff"/>
+        </linearGradient>
+        <rect id="FB_Header" height="16px" width="201px" fill="url(#linearGradient_FB_Header)" stroke="black"/>
+        <rect id="FB_Body" height="80px" width="201px" fill="#ffffff"/>
+        <rect id="FB_BodyArea1" height="80px" width="201px" fill="url(#linearGradient_FB_BodyArea_1)"/>
+        <rect id="FB_BodyArea2" height="0px" width="201px" fill="url(#linearGradient_FB_BodyArea_2)"/>
+        <rect id="FB_BodyFrame" height="96px" width="201px" stroke="black" style="fill:none;fill-opacity:1"/>
+    </defs>
+    <use x="86px" y="27px" xlink:href="#FB_Body"/>
+    <use x="86px" y="27px" xlink:href="#FB_BodyArea1"/>
+    <use x="86px" y="107px" xlink:href="#FB_BodyArea2"/>
+    <use x="86px" y="11px" xlink:href="#FB_BodyFrame"/>
+    <use x="86px" y="11px" xlink:href="#FB_Header"/>
+    <text x="186px" y="22px" style="font-size:8px;fill:#000000;font-family:Arial;text-anchor:middle;writing-mode:lr">MD_LimitFileNumber</text>
+    <path d="M 68,35,86,35" stroke="black"/>
+    <text x="59px" y="38px" style="font-size:8px;fill:#000000;font-family:Arial;text-anchor:end;writing-mode:lr">BOOL</text>
+    <text x="95px" y="38px" style="font-size:8px;fill:#000000;font-family:Arial;text-anchor:start;writing-mode:lr">Execute</text>
+    <path d="M 68,51,86,51" stroke="black"/>
+    <text x="59px" y="54px" style="font-size:8px;fill:#000000;font-family:Arial;text-anchor:end;writing-mode:lr">STRING[32]</text>
+    <text x="95px" y="54px" style="font-size:8px;fill:#000000;font-family:Arial;text-anchor:start;writing-mode:lr">FileDeviceName</text>
+    <path d="M 68,67,86,67" stroke="black"/>
+    <text x="59px" y="70px" style="font-size:8px;fill:#000000;font-family:Arial;text-anchor:end;writing-mode:lr">STRING[32]</text>
+    <text x="95px" y="70px" style="font-size:8px;fill:#000000;font-family:Arial;text-anchor:start;writing-mode:lr">DirectoryName</text>
+    <path d="M 68,83,86,83" stroke="black"/>
+    <text x="59px" y="86px" style="font-size:8px;fill:#000000;font-family:Arial;text-anchor:end;writing-mode:lr">STRING[128]</text>
+    <text x="95px" y="86px" style="font-size:8px;fill:#000000;font-family:Arial;text-anchor:start;writing-mode:lr">FileNamePattern</text>
+    <path d="M 68,99,86,99" stroke="black"/>
+    <text x="59px" y="102px" style="font-size:8px;fill:#000000;font-family:Arial;text-anchor:end;writing-mode:lr">UINT</text>
+    <text x="95px" y="102px" style="font-size:8px;fill:#000000;font-family:Arial;text-anchor:start;writing-mode:lr">MaxCount</text>
+    <path d="M 287,35,305,35" stroke="black"/>
+    <text x="314px" y="38px" style="font-size:8px;fill:#000000;font-family:Arial;text-anchor:start;writing-mode:lr">BOOL</text>
+    <text x="278px" y="38px" style="font-size:8px;fill:#000000;font-family:Arial;text-anchor:end;writing-mode:lr">Done</text>
+    <path d="M 287,51,305,51" stroke="black"/>
+    <text x="314px" y="54px" style="font-size:8px;fill:#000000;font-family:Arial;text-anchor:start;writing-mode:lr">BOOL</text>
+    <text x="278px" y="54px" style="font-size:8px;fill:#000000;font-family:Arial;text-anchor:end;writing-mode:lr">Busy</text>
+    <path d="M 287,67,305,67" stroke="black"/>
+    <text x="314px" y="70px" style="font-size:8px;fill:#000000;font-family:Arial;text-anchor:start;writing-mode:lr">BOOL</text>
+    <text x="278px" y="70px" style="font-size:8px;fill:#000000;font-family:Arial;text-anchor:end;writing-mode:lr">Error</text>
+    <path d="M 287,83,305,83" stroke="black"/>
+    <text x="314px" y="86px" style="font-size:8px;fill:#000000;font-family:Arial;text-anchor:start;writing-mode:lr">DINT</text>
+    <text x="278px" y="86px" style="font-size:8px;fill:#000000;font-family:Arial;text-anchor:end;writing-mode:lr">ErrorID</text>
+    <path d="M 287,99,305,99" stroke="black"/>
+    <text x="314px" y="102px" style="font-size:8px;fill:#000000;font-family:Arial;text-anchor:start;writing-mode:lr">STRING[80]</text>
+    <text x="278px" y="102px" style="font-size:8px;fill:#000000;font-family:Arial;text-anchor:end;writing-mode:lr">ErrorFileNamePattern</text>
+</svg>
