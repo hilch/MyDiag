@@ -14,6 +14,7 @@ MyDiag is a helper library for B&R Automation Runtime (Automation Studio) that s
 - brsystem
 - FileIO
 - AsArSdm
+- AsArProf
 
 GCC >= V6.3.0
 
