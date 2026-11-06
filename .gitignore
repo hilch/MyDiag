@@ -34,6 +34,10 @@
 # Visual Studio Code
 tools/codegen/.vscode/launch.json
 
+# Python temporary files
+__pycache__/
+*.py[cod]
+
 # Obsolete Automation Studio files
 *.isopen
 tools/AS4/project/Binaries/
