@@ -2,7 +2,8 @@
 """Draw IEC 61131-3 function blocks from a *.fun file as SVG.
 
 Parse every FUNCTION_BLOCK / FUNCTION definition in a B&R Automation Studio
-``*.fun`` declaration file and emit one SVG per definition.
+``*.fun`` declaration file and emit a diagram and parameter-table SVG per definition.
+Table columns share widths across all definitions; cell text wraps at 40 characters.
 
 Variable section layout:
   * Area 1 (orange)  -> VAR_INPUT (left pins) and VAR_OUTPUT (right pins);
@@ -23,6 +24,8 @@ import math
 import os
 import re
 import sys
+import textwrap
+import xml.etree.ElementTree as ET
 from dataclasses import dataclass, field
 
 
@@ -46,6 +49,7 @@ class Config:
 class IO:
     name: str
     type: str
+    description: str = ""
 
 
 @dataclass
@@ -177,35 +181,52 @@ _BLOCK_RE = re.compile(
 _ATTR_RE = re.compile(r"\{[^}]*\}")
 
 
+def _mask_comments(text: str) -> str:
+    return _COMMENT_RE.sub(
+        lambda match: re.sub(r"[^\r\n]", " ", match.group()), text
+    )
+
+
+def _description(text: str) -> str:
+    return " ".join(
+        " ".join(match.group()[2:-2].split())
+        for match in _COMMENT_RE.finditer(text)
+        if not match.group()[2:-2].lstrip().startswith("$")
+    ).strip()
+
+
 def _section(body: str, keyword: str) -> list[IO]:
     """Return the IO entries of a VAR section (VAR_INPUT / VAR_OUTPUT / VAR_IN_OUT)."""
-    match = re.search(rf"\b{keyword}\b(.*?)\bEND_VAR\b", body, re.DOTALL)
+    masked = _mask_comments(body)
+    match = re.search(rf"\b{keyword}\b(.*?)\bEND_VAR\b", masked, re.DOTALL)
     if not match:
         return []
+    section = body[match.start(1):match.end(1)]
+    declarations = list(re.finditer(r"(\w+)\s*:\s*([^;]+);", match.group(1)))
     items: list[IO] = []
-    for raw in match.group(1).splitlines():
-        line = _ATTR_RE.sub("", raw).strip()
-        if not line or ":" not in line:
-            continue
-        name, _, type_part = line.partition(":")
-        name = name.strip()
-        type_str = type_part.split(":=")[0].strip().rstrip(";").strip()
+    for index, declaration in enumerate(declarations):
+        name, type_part = declaration.groups()
+        type_str = _ATTR_RE.sub("", type_part).split(":=")[0].strip()
+        end = declarations[index + 1].start() if index + 1 < len(declarations) else len(section)
+        description = _description(section[declaration.start():end])
         if name and type_str:
-            items.append(IO(name, type_str))
+            items.append(IO(name, type_str, description))
     return items
 
 
 def parse_fun(text: str) -> list[FunctionBlock]:
-    text = _COMMENT_RE.sub("", text)
     blocks: list[FunctionBlock] = []
-    for kind, name, ret_type, body in _BLOCK_RE.findall(text):
+    for match in _BLOCK_RE.finditer(_mask_comments(text)):
+        kind, name, ret_type, _ = match.groups()
+        body = text[match.start(4):match.end(4)]
         fb = FunctionBlock(name=name)
         fb.inputs = _section(body, "VAR_INPUT")
         fb.outputs = _section(body, "VAR_OUTPUT")
         fb.in_outs = _section(body, "VAR_IN_OUT")
         if kind == "FUNCTION" and ret_type:
             # A function returns through a right-side pin named like the function.
-            fb.outputs.insert(0, IO(name, ret_type))
+            header = re.split(r"\bVAR(?:_INPUT|_OUTPUT|_IN_OUT)?\b", _mask_comments(body))[0]
+            fb.outputs.insert(0, IO(name, ret_type, _description(body[:len(header)])))
         blocks.append(fb)
     return blocks
 
@@ -424,6 +445,74 @@ def render_svg(fb: FunctionBlock, cfg: Config, measurer: TextMeasurer) -> str:
 
 
 # --------------------------------------------------------------------------- #
+# Parameter tables
+# --------------------------------------------------------------------------- #
+_TABLE_HEADERS = ("Parameter", "Datatype", "Description")
+_TABLE_PADDING = 8
+
+
+def _table_lines(text: str) -> list[str]:
+    return textwrap.wrap(text, width=40, break_long_words=True, break_on_hyphens=False) or [""]
+
+
+def table_column_widths(blocks: list[FunctionBlock], measurer: TextMeasurer) -> list[int]:
+    widths = [math.ceil(measurer.label_pixel(header, bold=True) * 1.25)
+              for header in _TABLE_HEADERS]
+    for fb in blocks:
+        for io in fb.inputs + fb.outputs + fb.in_outs:
+            for column, value in enumerate((io.name, io.type, io.description)):
+                for line in _table_lines(value):
+                    widths[column] = max(widths[column], math.ceil(measurer.label_pixel(line) * 1.25))
+    return [width + 2 * _TABLE_PADDING for width in widths]
+
+
+def render_table_svg(fb: FunctionBlock, cfg: Config, widths: list[int]) -> str:
+    line_height = math.ceil(cfg.font_size * 1.5)
+    rows: list[tuple[list[list[str]], str, bool]] = [
+        ([[_TABLE_HEADERS[column]] for column in range(3)], "#dce9f5", True)
+    ]
+    for label, ios in (("Inputs", fb.inputs), ("Outputs", fb.outputs), ("In/Out", fb.in_outs)):
+        if not ios:
+            continue
+        rows.append(([[label]], "#eeeeee", True))
+        for io in ios:
+            rows.append(([_table_lines(value) for value in (io.name, io.type, io.description)],
+                         "#ffffff", False))
+    height = sum(max(map(len, cells)) * line_height + 2 * _TABLE_PADDING
+                 for cells, _, _ in rows)
+    width = sum(widths)
+    root = ET.Element("svg", {
+        "xmlns": "http://www.w3.org/2000/svg",
+        "width": f"{width + 2}px", "height": f"{height + 2}px",
+        "viewBox": f"0 0 {width + 2} {height + 2}",
+        "font-family": cfg.font_name, "font-size": str(cfg.font_size),
+    })
+    ET.SubElement(root, "title").text = f"{fb.name} parameters"
+    top = 1
+    for cells, fill, bold in rows:
+        row_height = max(map(len, cells)) * line_height + 2 * _TABLE_PADDING
+        left = 1
+        for column, lines in enumerate(cells):
+            cell_width = width if len(cells) == 1 else widths[column]
+            ET.SubElement(root, "rect", {
+                "x": str(left), "y": str(top), "width": str(cell_width),
+                "height": str(row_height), "fill": fill, "stroke": "#999999",
+            })
+            text = ET.SubElement(root, "text", {
+                "font-weight": "bold" if bold else "normal", "fill": "#000000",
+            })
+            for index, line in enumerate(lines):
+                ET.SubElement(text, "tspan", {
+                    "x": str(left + _TABLE_PADDING),
+                    "y": str(top + _TABLE_PADDING + cfg.font_size + index * line_height),
+                }).text = line
+            left += cell_width
+        top += row_height
+    ET.indent(root)
+    return '<?xml version="1.0" encoding="UTF-8"?>\n' + ET.tostring(root, encoding="unicode") + "\n"
+
+
+# --------------------------------------------------------------------------- #
 # CLI
 # --------------------------------------------------------------------------- #
 def main(argv: list[str] | None = None) -> int:
@@ -465,14 +554,18 @@ def main(argv: list[str] | None = None) -> int:
         print("warning: no FUNCTION or FUNCTION_BLOCK definitions found", file=sys.stderr)
         return 1
 
+    widths = table_column_widths(blocks, measurer)
     for fb in blocks:
-        svg = render_svg(fb, cfg, measurer)
-        path = os.path.join(outdir, f"{fb.name}.svg")
-        with open(path, "w", encoding="utf-8", newline="\n") as handle:
-            handle.write(svg)
-        print(f"wrote {path}")
+        for filename, svg in (
+            (f"{fb.name}.svg", render_svg(fb, cfg, measurer)),
+            (f"{fb.name}_table.svg", render_table_svg(fb, cfg, widths)),
+        ):
+            path = os.path.join(outdir, filename)
+            with open(path, "w", encoding="utf-8", newline="\n") as handle:
+                handle.write(svg)
+            print(f"wrote {path}")
 
-    print(f"\n{len(blocks)} SVG file(s) generated in {outdir}")
+    print(f"\n{2 * len(blocks)} SVG file(s) generated in {outdir}")
     return 0
 
 

@@ -44,6 +44,8 @@ Every write command is executed within 1 cycle.
 
 ![MD_LogWatchBOOL](doc/MD_LogWatchBOOL.svg)
 
+![MD_LogWatchBOOL parameters](doc/MD_LogWatchBOOL_table.svg)
+
 Write status of BOOL variable into logger on variable change.
 
 usage:
@@ -68,6 +70,8 @@ logger output:
 ### MD_LogWatch8Flags
 
 ![MD_LogWatch8Flags](doc/MD_LogWatch8Flags.svg)
+
+![MD_LogWatch8Flags parameters](doc/MD_LogWatch8Flags_table.svg)
 
 Writes status of up to 8 bits ('flags') into logger on variable change.
 Each bit is assigned a text via '.Flag[x]', where a '1' state is indicated with upper case letters and a '0' state with lower case letters.
@@ -110,6 +114,8 @@ logger output:
 
 ![MD_LogWatchDINT](doc/MD_LogWatchDINT.svg)
 
+![MD_LogWatchDINT parameters](doc/MD_LogWatchDINT_table.svg)
+
 Writes status of DINT variable into logger on variable change.
 
 usage:
@@ -134,6 +140,8 @@ logger output:
 ### MD_LogWatchSTRING
 
 ![MD_LogWatchSTRING](doc/MD_LogWatchSTRING.svg)
+
+![MD_LogWatchSTRING parameters](doc/MD_LogWatchSTRING_table.svg)
 
 Writes contents of STRING variable into logger on variable change.
 
@@ -181,6 +189,8 @@ logger output:
 
 ![MD_LogWrite](doc/MD_LogWrite.svg)
 
+![MD_LogWrite parameters](doc/MD_LogWrite_table.svg)
+
 Writes into Logger. Generic function with 'Execute' input.
 
 usage:
@@ -213,6 +223,8 @@ logger output:
 
 ![MD_Dump](doc/MD_Dump.svg)
 
+![MD_Dump parameters](doc/MD_Dump_table.svg)
+
 Create a System Dump File on local storage. The system date is included in file name.
 The number of files can be limited to reduce storage space.
 
@@ -236,6 +248,8 @@ END_PROGRAM
 ### MD_Profiler
 
 ![MD_Profiler](doc/MD_Profiler.svg)
+
+![MD_Profiler parameters](doc/MD_Profiler_table.svg)
 
 Configures the Automation Runtime Profiler.
 Enables you e.g. to increase the logging space and what details to log.
@@ -291,6 +305,8 @@ These function blocks are internally used but might be helpful in other situatio
 
 ![MD_ascDT](doc/MD_ascDT.svg)
 
+![MD_ascDT parameters](doc/MD_ascDT_table.svg)
+
 Returns ASCII timestring for DATE_AND_TIME
 
 usage:
@@ -304,6 +320,8 @@ The output will be a string like `'Thu Aug 23  14:55:20'`.
 ### MD_filenameDT
 
 ![MD_filenameDT](doc/MD_filenameDT.svg)
+
+![MD_filenameDT parameters](doc/MD_filenameDT_table.svg)
 
 Returns a valid filename with given prefix and IEC like timestamp included.
 This function block is used for generating filenames within MD_Record
@@ -319,6 +337,8 @@ The output will be a string like `'SystemDump_2023-01-15T14_55_20'`.
 ### MD_LimitFileNumber
 
 ![MD_LimitFileNumber](doc/MD_LimitFileNumber.svg)
+
+![MD_LimitFileNumber parameters](doc/MD_LimitFileNumber_table.svg)
 
 Limits the number of files on a file device. The FileNamePattern can be given by a regular expression.
 With a rising edge at the 'Execute' input, the oldest files are deleted until the maximum number 'MaxCount' is reached.
