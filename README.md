@@ -5,6 +5,10 @@
 
 MyDiag is a helper library for B&R Automation Runtime (Automation Studio) that simplifies application-level diagnostics. It wraps the ArEventLog and AsArSdm system libraries to give PLC developers easy-to-use IEC 61131-3 function blocks for logging variable changes, writing log entries, capturing system dumps, and configuring the AR Profiler — without needing to call those lower-level APIs directly.
 
+## License
+
+This software published under [MIT license](LICENSE). Also have a look into the [disclaimer](Disclaimer.md
+
 ## Dependencies / Preconditions
 
 - ArEventLog
